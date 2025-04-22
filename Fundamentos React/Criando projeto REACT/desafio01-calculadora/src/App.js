@@ -10,6 +10,10 @@ import { useEffect } from 'react';
 
 const App = () => {
   const [currentValue, setCurrentValue] = useState("0");
+  const [firstNumber, setFirstNumber] = useState(null);
+  const [secondNumber, setSecondNumber] = useState(null);
+  const [operation, setOperation] = useState(null);
+  const [result, setResult] = useState(null);
 
   const handleClear = () => {
     setCurrentValue("0");
@@ -18,6 +22,7 @@ const App = () => {
   const handleAddValue = (value) => {
     setCurrentValue(prev => `${value}${prev}`);
   }
+
 
   return (
     <Container>
