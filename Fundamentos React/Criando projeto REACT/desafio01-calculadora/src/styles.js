@@ -21,10 +21,4 @@ export const Row = styled.div`
     justify-content: space-between;
     align-items: center;
     `
-
-export const Column = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    `    
+    

@@ -2,31 +2,51 @@
 import Input from './components/Input'
 import Button from './components/Button'
 
-import {Container, Content, Row, Column} from './styles'
+import {Container, Content, Row} from './styles'
+import { useState } from 'react';
+import { useEffect } from 'react';
+
+
 
 const App = () => {
+  const [currentValue, setCurrentValue] = useState("0");
+
+  const handleClear = () => {
+    setCurrentValue("0");
+  }
+
+  const handleAddValue = (value) => {
+    setCurrentValue(prev => `${value}${prev}`);
+  }
+
   return (
     <Container>
       <Content>
-        <Input>        
+        <Input value={currentValue}>        
         </Input>
         <Row>
-          <Button label="1" onClick={1}/>
-          <Button label="2" onClick={1}/>
-          <Button label="3" onClick={1}/>
-          <Button label="-" onClick={1}/>
+          <Button label="C" onClick={()=>handleClear()}/>
+          <Button label="/" onClick={()=>handleAddValue('/')}/>
+          <Button label="*" onClick={()=>handleAddValue('*')}/>
+          <Button label="-" onClick={()=>handleAddValue('-')}/>
         </Row>
         <Row>
-          <Button label="4" onClick={1}/>
-          <Button label="5" onClick={1}/>
-          <Button label="6" onClick={1}/>
-          <Button label="+" onClick={1}/>
+          <Button label="7" onClick={()=>handleAddValue('7')}/>
+          <Button label="8" onClick={()=>handleAddValue('8')}/>
+          <Button label="9" onClick={()=>handleAddValue('9')}/>
+          <Button label="+" onClick={()=>handleAddValue('+')}/>
         </Row>
         <Row>
-          <Button label="1" onClick={1}/>
-          <Button label="2" onClick={1}/>
-          <Button label="3" onClick={1}/>
-          <Button label="=" onClick={1}/>
+          <Button label="4" onClick={()=>handleAddValue('4')}/>
+          <Button label="5" onClick={()=>handleAddValue('5')}/>
+          <Button label="6" onClick={()=>handleAddValue('6')}/>
+          <Button label="=" onClick={()=>handleAddValue('=')}/>
+        </Row>
+        <Row>
+          <Button label="1" onClick={()=>handleAddValue('1')}/>
+          <Button label="2" onClick={()=>handleAddValue('2')}/>
+          <Button label="3" onClick={()=>handleAddValue('3')}/>
+          <Button label="0" onClick={()=>handleAddValue('0')}/>
         </Row>
 
       </Content>
