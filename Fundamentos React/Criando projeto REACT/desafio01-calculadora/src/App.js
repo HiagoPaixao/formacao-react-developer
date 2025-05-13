@@ -4,15 +4,12 @@ import Button from './components/Button'
 
 import {Container, Content, Row} from './styles'
 import { useState } from 'react';
-import { useEffect } from 'react';
-
-
 
 const App = () => {
   const [currentValue, setCurrentValue] = useState("");
   const [firstNumber, setFirstNumber] = useState(null);
   const [operation, setOperation] = useState(null);
-  const [lastInput, setLastInput] = useState(null);
+  const [result, setResult] = useState(null);
 
   const handleClear = () => {
     setCurrentValue("");
@@ -22,68 +19,30 @@ const App = () => {
     setCurrentValue(prev => `${prev}${value}`);
   }
 
-  const handleoperation = (operation) => {
+  const handleSetOperation = (op) => {
+    if (currentValue === "") return;
     if (firstNumber === null) {
       setFirstNumber(currentValue);
-      setOperation(operation);
+      setOperation(op);
       setCurrentValue("");
     } else {
-      const result = executeOperation(Number(firstNumber), Number(currentValue), operation);
-      setFirstNumber(result);
-      setOperation(operation);
-      setCurrentValue("");
+      result = handleEquals();
     }
   }
-
-  const executeOperation = (firstNumber, currentValue, operation) => {
-    switch (operation) {
-      case '+':
-        return firstNumber + currentValue;
-      case '-':
-        return firstNumber - currentValue;
-      case '*':
-        return firstNumber * currentValue;
-      case '/':
-        return firstNumber / currentValue;
-      default:
-        return currentValue;
-    }
-  }
-  // const handleSumNumbers = () => {
-  //   if (firstNumber === null) {
-  //     setFirstNumber(currentValue);
-  //     setOperation('+');
-  //     setCurrentValue("");
-  //     handleClear();
-  //   }else {
-  //     const sum = Number(firstNumber) + Number(currentValue);
-  //     setCurrentValue(String(sum));
-  //   }
-  // }
-
-  // const handleSubNumbers = () => {
-  //   if (firstNumber === null) {
-  //     setFirstNumber(currentValue);
-  //     setOperation('-');
-  //     setCurrentValue("");
-  //     handleClear();
-  //   }else {
-  //     const sum = Number(firstNumber) - Number(currentValue);
-  //     setCurrentValue(String(sum));
-  //   }
-  // }
 
   const handleEquals = () => {
-  if (firstNumber !== null && operation !== null) {
-
-      const lastNumber = currentValue !== "" ? currentValue : lastInput;
-
-      if (lastNumber == null) return;
-
-      const result = executeOperation(Number(firstNumber), Number(lastNumber), operation);
-      setCurrentValue(String(result));
-      setFirstNumber(result);
-      setLastInput(lastNumber);
+    if (operation === '+') {
+      const sum = Number(firstNumber) + Number(currentValue);
+      setCurrentValue(String(sum));
+    } else if (operation === '-') {
+      const sub = Number(firstNumber) - Number(currentValue);
+      setCurrentValue(String(sub));
+    } else if (operation === '*') {
+      const mult = Number(firstNumber) * Number(currentValue);
+      setCurrentValue(String(mult));
+    } else if (operation === '/') {
+      const div = Number(firstNumber) / Number(currentValue);
+      setCurrentValue(String(div));
     }
   }
 
@@ -94,15 +53,15 @@ const App = () => {
         </Input>
         <Row>
           <Button label="C" onClick={handleClear}/>
-          <Button label="/" onClick={()=>handleoperation('/')}/>
-          <Button label="*" onClick={()=>handleoperation('*')}/>
-          <Button label="-" onClick={()=>handleoperation('-')}/>
+          <Button label="/" onClick={()=>handleSetOperation('/')}/>
+          <Button label="*" onClick={()=>handleSetOperation('*')}/>
+          <Button label="-" onClick={()=>handleSetOperation('-')}/>
         </Row>
         <Row>
           <Button label="7" onClick={()=>handleAddValue('7')}/>
           <Button label="8" onClick={()=>handleAddValue('8')}/>
           <Button label="9" onClick={()=>handleAddValue('9')}/>
-          <Button label="+" onClick={()=>handleoperation('+')}/>
+          <Button label="+" onClick={()=>handleSetOperation('+')}/>
         </Row>
         <Row>
           <Button label="4" onClick={()=>handleAddValue('4')}/>
